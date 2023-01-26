@@ -16,7 +16,7 @@ use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('login.get');
 
 
 // Auth Routes
@@ -25,3 +25,9 @@ Route::get('/facebook/callback', [AuthController::class, 'facebookCallback'])->n
 
 Route::get('/google/login', [AuthController::class, 'googleLogin'])->name('google.login');
 Route::get('/google/callback', [AuthController::class, 'googleCallback'])->name('google.callback');
+
+
+// Authenticate pages
+Route::get('/dashboard', function(){
+    return view('dashboard');
+})->name('auth.get')->middleware('authMiddleware');

@@ -13,7 +13,11 @@ class AuthController extends Controller
 
     public function facebookCallback(){
         $user = Socialite::driver('facebook')->user();
-        return $user;
+        if($user){
+            $req->session()->put('user', $user);
+            return redirect()->route('auth.get');
+        }
+        return redirect()->route('login.get');
     }
 
     public function googleLogin(){
@@ -22,6 +26,10 @@ class AuthController extends Controller
 
     public function googleCallback(){
         $user = Socialite::driver('google')->user();
-        return $user;
+        if($user){
+            $req->session()->put('user', $user);
+            return redirect()->route('auth.get');
+        }
+        return redirect()->route('login.get');
     }
 }
